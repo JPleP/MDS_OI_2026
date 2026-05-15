@@ -1,0 +1,64 @@
+\documentclass[a4paper,12pt]{article}
+
+% Common lightweight packages
+\usepackage{ZFPredef}
+
+\DeclareMathOperator{\sgn}{sgn}
+
+\title{MDS}
+\begin{document}
+%\maketitle
+%\break
+\section{Theoretical Fundation}
+The exercise consists of determining the position of objects in space,
+depeding on the distance between them.
+
+Considering a matrix:
+\begin{equation}
+\bm{D} = 
+\begin{pmatrix}
+0 & d_{12} & ... & d_{1n} \\
+d_{21} & 0 & ... & d_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+d_{n1} & d_{n2} & ... & 0    
+\end{pmatrix}
+\end{equation}
+
+which represents the pairwise distance between the objects. The Matrix is 
+symmetric.
+
+The objective is to determine the position of the objects, in this case 2 dimensional, represented
+with the matrix:
+
+\begin{equation}
+\bm{X} = 
+\begin{pmatrix}
+x_{11} & x_{12} \\
+x_{21} & x_{22} \\
+\vdots & \vdots \\
+x_{n1} & x_{n2}
+\end{pmatrix}.
+\end{equation}
+
+\subsection{Optimization Problem}
+The objective is to find $\bm{X}$, so that the the distance between the positions
+is approximatly the value of the $\bm{D}$ matrix.
+
+Meaning, the objective is:
+
+\begin{equation}
+    \min_{\bm{X}}\limits h_{\bm{X}}(\bm{D}) = \sum_{i=2}^{n} \sum_{j=1}^{i-1} \left|d_{ij} - \lVert x_i - x_j \rVert \right|
+\end{equation}
+
+
+Since the absolute of a value is not a differentiable value, the l2-Norm is used.
+
+
+\begin{equation}
+    \min_{\bm{X}}\limits h_{\bm{X}}(\bm{D}) = \sqrt{2\sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2}
+\end{equation}
+
+
+
+
+\end{document}

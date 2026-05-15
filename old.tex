@@ -1,0 +1,37 @@
+Instead of the l2-Norm
+
+\subsubsection{Proof of Konvexity}
+To prove that the loss function is konvex, first the gradient is calculated:
+
+\begin{equation}
+    \nabla_{\bm{X}} h_{\bm{X}}(\bm{D}) = \begin{pmatrix}
+    \frac{1}{2} 
+    \frac{\sum_{i=2}^{n} (2(d_{ij} - \lVert x_i - x_1 \rVert) \frac{x_i - x_1}{\lVert x_i - x_1 \rVert} (-1))}
+{\sqrt{\sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2}}\\    \frac{1}{2} 
+    \frac{\sum_{i=3}^{n} (2(d_{i2} - \lVert x_i - x_1 \rVert) \frac{x_i - x_2}{\lVert x_i - x_2 \rVert} (-1)) + \sum_{j=1}^{1} (2(d_{2j} - \lVert x_2 - x_j \rVert) \frac{x_2 - x_j}{\lVert x_2 - x_j \rVert})}
+    {\sqrt{\sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2}}\\ 
+    \vdots \\
+    \frac{1}{2} 
+    \frac{\sum_{j=1}^{n-1} (2(d_{nj} - \lVert x_n - x_j \rVert) \frac{x_n - x_j}{\lVert x_n - x_j \rVert})}
+    {\sqrt{\sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2}}\\ 
+
+    \end{pmatrix}
+\end{equation}
+
+
+which can be generalized to the function:
+\begin{align}
+    \nabla_{\bm{X}} h_{\bm{X}}(\bm{D})_k &= \frac{1}{2} 
+    \frac{\sum_{i=k+1}^{n} (2(d_{ik} - \lVert x_i - x_k \rVert) \frac{x_i - x_k}{\lVert x_i - x_k \rVert} (-1)) + \sum_{j=1}^{k-1} (2(d_{kj} - \lVert x_k - x_j \rVert) \frac{x_k - x_j}{\lVert x_k - x_j \rVert})}
+    {\sqrt{\sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2}}\\
+    \nabla_{\bm{X}} h_{\bm{X}}(\bm{D})_k &=
+    \frac{-\sum_{i=k+1}^{n} \frac{(d_{ik} - \lVert x_i - x_k \rVert)(x_i - x_k)}{\lVert x_i - x_k \rVert} + \sum_{j=1}^{k-1} ((d_{kj} - \lVert x_k - x_j \rVert) \frac{x_k - x_j}{\lVert x_k - x_j \rVert})}
+    {\sqrt{\sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2}}
+\end{align}
+
+
+The Hesse Matrix is therefore:\\
+case $k \ne g$:
+\begin{equation}
+    \nabla^2_{\bm{X}} h_{\bm{X}}(\bm{D})_{kg} = 
+\end{equation}
