@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.1.4)  5 MAY 2026 18:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.1.4)  29 JUN 2026 21:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -311,6 +311,12 @@ File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen259
+\pgfarrowlength=\dimen260
+\pgfarrowwidth=\dimen261
+\pgfarrowlinewidth=\dimen262
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty
 Package: bm 2023/12/19 v1.2f Bold Symbol Support (DPC/FMi)
 \symboldoperators=\mathgroup6
@@ -344,13 +350,13 @@ LaTeX Font Info:    ... okay on input line 9.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count304
-\scratchdimen=\dimen259
+\scratchdimen=\dimen263
 \scratchbox=\box66
 \nofMPsegments=\count305
 \nofMParguments=\count306
 \everyMPshowfont=\toks35
 \MPscratchCnt=\count307
-\MPscratchDim=\dimen260
+\MPscratchDim=\dimen264
 \MPnumerator=\count308
 \makeMPintoPDFobject=\count309
 \everyMPtoPDFconversion=\toks36
@@ -378,15 +384,15 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 13164 strings out of 473197
- 264351 string characters out of 5718606
- 631672 words of memory out of 5000000
- 36186 multiletter control sequences out of 15000+600000
+ 13500 strings out of 473197
+ 273266 string characters out of 5718606
+ 642087 words of memory out of 5000000
+ 36518 multiletter control sequences out of 15000+600000
  567462 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 117i,9n,121p,470b,139s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 117i,9n,121p,449b,139s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (1 page, 98314 bytes).
+Output written on main.pdf (1 page, 98058 bytes).
 PDF statistics:
  61 PDF objects out of 1000 (max. 8388607)
  37 compressed objects within 1 object stream

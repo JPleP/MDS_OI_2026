@@ -55,9 +55,10 @@ Since the absolute of a value is not a differentiable value, the l2-Norm is used
 
 
 \begin{equation}
-    \min_{\bm{X}}\limits h_{\bm{X}}(\bm{D}) = \sqrt{2\sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2}
+    \min_{\bm{X}}\limits h_{\bm{X}}(\bm{D}) = \sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2
 \end{equation}
 
+Differentiating gives the value:
 
 
 
