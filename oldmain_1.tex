@@ -1,0 +1,229 @@
+\documentclass[a4paper,12pt]{article}
+
+% Common lightweight packages
+\usepackage{ZFPredef}
+\usepackage[margin=0.75in]{geometry}
+\DeclareMathOperator{\sgn}{sgn}
+
+\title{MDS}
+\begin{document}
+%\maketitle
+%\break
+\section{Theoretical Fundation}
+The exercise consists of determining the position of objects in space,
+depeding on the distance between them.
+
+Considering a matrix:
+\begin{equation}
+\bm{D} = 
+\begin{pmatrix}
+0 & d_{12} & ... & d_{1n} \\
+d_{21} & 0 & ... & d_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+d_{n1} & d_{n2} & ... & 0    
+\end{pmatrix}
+\end{equation}
+
+which represents the pairwise distance between the objects. The Matrix is 
+symmetric.
+
+The objective is to determine the position of the objects, in this case 2 dimensional, represented
+with the matrix:
+
+\begin{equation}
+\bm{X}_{2D} = 
+\begin{pmatrix}
+x_{11} & x_{12} \\
+x_{21} & x_{22} \\
+\vdots & \vdots \\
+x_{n1} & x_{n2}
+\end{pmatrix}.
+\end{equation}
+
+We can reformulate the position array as 1D data vector:
+
+\begin{equation}
+\bm{X} = 
+\begin{pmatrix}
+x_{11} \\ x_{12} \\
+x_{21} \\
+\vdots \\
+x_{n1} \\ x_{n2}
+\end{pmatrix}.
+\end{equation}
+
+\subsection{Optimization Problem}
+The objective is to find $\bm{X}_{2D}$ or $\bm{X}$, so that the the distance between the positions
+is approximatly the value of the $\bm{D}$ matrix.
+
+Meaning, the objective is:
+
+\begin{equation}
+    \min_{\bm{X}_{2D}}\limits h_{\bm{X}_{2D}}(\bm{D}) = \sum_{i=2}^{n} \sum_{j=1}^{i-1} \left|d_{ij} - \lVert \bm{x}_{2D,i} - \bm{x}_{2D,j} \rVert \right|
+\end{equation}
+
+Can be changed to use $\bm{X}$.
+\begin{equation}
+    \min_{\bm{X}}\limits h_{\bm{X}}(\bm{D}) = \sum_{i=2}^{n} \sum_{j=1}^{i-1} \left|d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2} \right|
+\end{equation}
+
+Since the absolute of a value is not a differentiable value, the square is used.
+
+\begin{equation}
+    \min_{\bm{X}}\limits h_{\bm{X}}(\bm{D}) = \sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2} \right)^2
+\end{equation}
+
+The term is defined as:
+
+\begin{equation}
+    f_{ij}(\bm{D}, \bm{X}) = \left(d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2} \right)
+\end{equation}
+
+Differentiating $h_{\bm{X}}$ gives the term:
+\begin{equation}
+    \frac{\partial}{\partial x_{kl}} h_{\bm{X}}(\bm{D}) = \sum_{j=1}^{k-1} \frac{\partial}{\partial x_{kl}}f_{kj}(\bm{D}, \bm{X}) +  \sum_{i=k+1}^{n} \frac{\partial}{\partial x_{kl}}f_{ik}(\bm{D}, \bm{X})
+\end{equation}
+
+And differentiating $f_{ij}$:
+\begin{equation}
+\begin{aligned}
+    \frac{\partial}{\partial x_{kl}} f_{ij}(\bm{D}, \bm{X}) = 
+    \\ & 2\left(d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2} \right)
+    \\ & \left(-\frac{1}{2\sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}} \right) 
+    \\ &\begin{cases}
+        k=i,l=1 & \left(2(x_{i1} - x_{j1})\right)\\
+        k=i,l=2 & \left(2(x_{i2} - x_{j2})\right)\\
+        k=j,l=1 & \left(-2(x_{i1} - x_{j1})\right)\\
+        k=j,l=2 & \left(-2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+\end{aligned}
+\end{equation}
+
+
+Differentiation again $ \frac{\partial}{\partial x_{kl}} h_{\bm{X}}(\bm{D})$ gives:
+\begin{equation}
+\begin{aligned}
+    \frac{\partial^2}{\partial x_{kl} \partial x_{qr}} h_{\bm{X}}(\bm{D}) &=
+    \\ &\begin{cases}
+    q < k & \frac{\partial^2}{\partial x_{kl} \partial x_{qr}}f_{km}(\bm{D}, \bm{X})\\
+    q = k & \sum_{j=1}^{k-1} \frac{\partial^2}{\partial x_{kl} \partial x_{qr}}f_{kj}(\bm{D}, \bm{X}) \\
+    q > k & 0
+    \end{cases} 
+    \\ & + \begin{cases}
+        q < k & 0 \\
+        q = k & \sum_{i=k+1}^{n} \frac{\partial^2}{\partial x_{kl} \partial x_{qr}}f_{ik}(\bm{D}, \bm{X}) \\
+        q > k & \frac{\partial^2}{\partial x_{kl} \partial x_{qr}}f_{mk}(\bm{D}, \bm{X})
+    \end{cases}
+    \end{aligned}
+\end{equation}
+
+and $\frac{\partial^2}{\partial x_{kl} \partial x_{qr}} f_{ij}(\bm{D}, \bm{X})$:
+\begin{equation}
+\begin{aligned}
+    \frac{\partial^2}{\partial x_{kl} \partial x_{qr}} f_{ij}(\bm{D}, \bm{X}) = 
+    \\ & 2\left(- \frac{1}{2\sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}} \right)
+    \\ &\begin{cases}
+        q=i,r=1 & \left(2(x_{i1} - x_{j1})\right)\\
+        q=i,r=2 & \left(2(x_{i2} - x_{j2})\right)\\
+        q=j,r=1 & \left(-2(x_{i1} - x_{j1})\right)\\
+        q=j,r=2 & \left(-2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+    \\ & \left(-\frac{1}{2\sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}} \right) 
+    \\ &\begin{cases}
+        k=i,l=1 & \left(2(x_{i1} - x_{j1})\right)\\
+        k=i,l=2 & \left(2(x_{i2} - x_{j2})\right)\\
+        k=j,l=1 & \left(-2(x_{i1} - x_{j1})\right)\\
+        k=j,l=2 & \left(-2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}    
+    \\ & + 2\left(d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2} \right)
+    \\ & \left(\frac{1}{4\left((x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2\right)^{\frac{3}{2}}} \right) 
+    \\ & \begin{cases}
+        q=i,r=1 & \left(2(x_{i1} - x_{j1})\right)\\
+        q=i,r=2 & \left(2(x_{i2} - x_{j2})\right)\\
+        q=j,r=1 & \left(-2(x_{i1} - x_{j1})\right)\\
+        q=j,r=2 & \left(-2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+    \\ & \begin{cases}
+        k=i,l=1 & \left(2(x_{i1} - x_{j1})\right)\\
+        k=i,l=2 & \left(2(x_{i2} - x_{j2})\right)\\
+        k=j,l=1 & \left(-2(x_{i1} - x_{j1})\right)\\
+        k=j,l=2 & \left(-2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+    \\ & + 2 \left(d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2} \right)
+    \\ & \left(-\frac{1}{2\sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}} \right) 
+    \\ &\begin{cases}
+        k=i,l=1,q=i,r=1 & \left(2\right)\\
+        k=i,l=1,q=j,r=1 & \left(-2\right)\\
+        k=i,l=2,q=i,r=2 & \left(2\right)\\
+        k=i,l=2,q=j,r=2 & \left(-2\right)\\
+        k=j,l=1,q=i,r=1 & \left(-2\right)\\
+        k=j,l=1,q=j,r=1 & \left(2\right)\\
+        k=j,l=2,q=i,r=2 & \left(-2\right)\\
+        k=j,l=2,q=j,r=2 & \left(2\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+\end{aligned}
+\end{equation}
+
+The term $\frac{\partial^2}{\partial x_{kl} \partial x_{qr}} f_{ij}(\bm{D}, \bm{X})$ can be resumed to:
+\begin{equation}
+    \begin{aligned}
+        \frac{\partial^2}{\partial x_{kl} \partial x_{qr}} f_{ij}(\bm{D}, \bm{X}) = 
+    \\ & \left[\left(\frac{1}{2\left((x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2\right)} \right) 
+    +  \left(\frac{d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2} }{2\left((x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2\right)^{\frac{3}{2}}} \right) \right]
+    \\ &\begin{cases}
+        q=i,r=1 & \left(2(x_{i1} - x_{j1})\right)\\
+        q=i,r=2 & \left(2(x_{i2} - x_{j2})\right)\\
+        q=j,r=1 & \left(-2(x_{i1} - x_{j1})\right)\\
+        q=j,r=2 & \left(-2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+    \\ &\begin{cases}
+        k=i,l=1 & \left(2(x_{i1} - x_{j1})\right)\\
+        k=i,l=2 & \left(2(x_{i2} - x_{j2})\right)\\
+        k=j,l=1 & \left(-2(x_{i1} - x_{j1})\right)\\
+        k=j,l=2 & \left(-2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+    \\ & + \left(-\frac{d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}}{\sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}} \right) 
+    \\ &\begin{cases}
+        k = q, l=r & 2 \\
+        k \ne q, l=r & -2 \\
+        k,q \ne \{i,j\}  & 0 \\
+        \text{otherwise} & 0 \\
+    \end{cases}
+    \end{aligned}
+\end{equation}
+
+
+To ensure convexity, $\frac{\partial^2}{\partial x_{kl} \partial x_{qr}} h_{\bm{X}}(\bm{D}) \ge 0 \quad \quad\forall \quad k,q \in [1, n];\quad l,r \in \{1,2\} $
+
+\begin{itemize}
+    \item $q < k: \quad \frac{\partial^2}{\partial x_{kl} \partial x_{qr}}f_{kq}(\bm{D}, \bm{X}) =
+    
+    
+    \left[\left(\frac{1}{2\left((x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2\right)} \right) 
+    +  \left(\frac{d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2} }{2\left((x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2\right)^{\frac{3}{2}}} \right) \right]
+    \begin{cases}
+        q=j,r=1 & \left(-2(x_{i1} - x_{j1})\right)\\
+        q=j,r=2 & \left(-2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+    \begin{cases}
+        k=i,l=1 & \left(2(x_{i1} - x_{j1})\right)\\
+        k=i,l=2 & \left(2(x_{i2} - x_{j2})\right)\\
+        \text{otherwise} & 0
+    \end{cases}
+     + \left(\frac{d_{ij} - \sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}}{\sqrt{(x_{i1} - x_{j1})^2 + (x_{i2} - x_{j2})^2}} \right) 
+    \begin{cases}
+        l=r & -2\\
+        \text{otherwise} & 0
+    \end{cases}$
+\end{itemize}
+
+\end{document}

@@ -1,8 +1,9 @@
 \documentclass[a4paper,12pt]{article}
 
 % Common lightweight packages
-\usepackage{ZFPredef}
-
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{bm}
 \DeclareMathOperator{\sgn}{sgn}
 
 \title{MDS}
@@ -40,26 +41,36 @@ x_{n1} & x_{n2}
 \end{pmatrix}.
 \end{equation}
 
-\subsection{Optimization Problem}
-The objective is to find $\bm{X}$, so that the the distance between the positions
-is approximatly the value of the $\bm{D}$ matrix.
 
-Meaning, the objective is:
-
+\subsection{Solution}
+To solve this problem,
+first a matrix $\bm{A}$ is defined as:
 \begin{equation}
-    \min_{\bm{X}}\limits h_{\bm{X}}(\bm{D}) = \sum_{i=2}^{n} \sum_{j=1}^{i-1} \left|d_{ij} - \lVert x_i - x_j \rVert \right|
+\bm{A} =-\frac{1}{2} 
+\begin{pmatrix}
+0 & d_{12}^2 & ... & d_{1n}^2 \\
+d_{21}^2 & 0 & ... & d_{2n}^2 \\
+\vdots & \vdots & \ddots & \vdots \\
+d_{n1}^2 & d_{n2}^2 & ... & 0    
+\end{pmatrix}
 \end{equation}
 
 
-Since the absolute of a value is not a differentiable value, the l2-Norm is used.
+this matrix is used to calculate the centred inner-product matrix:
 
 
 \begin{equation}
-    \min_{\bm{X}}\limits h_{\bm{X}}(\bm{D}) = \sum_{i=2}^{n} \sum_{j=1}^{i-1} \left(d_{ij} - \lVert x_i - x_j \rVert \right)^2
+    \bm{B} = \bm{HAH}
 \end{equation}
 
-Differentiating gives the value:
+where $\bm{H}$ is defined as the centering matrix:
 
+\begin{equation}
+    \bm{H} = \bm{I}_n - \frac{1}{n}\bm{1}_n\bm{1}_n^T
+\end{equation}
+
+
+To then get the values of X:
 
 
 \end{document}
